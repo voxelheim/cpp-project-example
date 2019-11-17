@@ -28,6 +28,10 @@ if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     endif()
 endif()
 
+# GTEST
+
+add_subdirectory(third-party)
+
 # LIBRARY
 
 set(src_files src/example.cpp)
@@ -41,12 +45,16 @@ target_link_libraries(example PUBLIC coverage_config)
 
 option (BUILD_TESTING "Build the testing tree." ON)
 
-set(test_files test/example_test.cpp)
+set(test_files test/tests.cpp test/example_test.cpp)
 
 if (BUILD_TESTING)
-    enable_testing()
     add_executable(tests ${test_files})
-    target_link_libraries(tests PRIVATE example)
-    add_test(NAME test_example COMMAND tests)
+    add_dependencies(tests gtest)
+    target_link_libraries(tests PRIVATE example gtest)
+    
+    enable_testing()
+    add_test(NAME run_tests COMMAND tests)
+
+    add_custom_command(TARGET tests POST_BUILD COMMAND tests)
 endif()
 

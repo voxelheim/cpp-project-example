@@ -1,19 +1,8 @@
 #include "example.hpp"
 
-#include <iostream>
+#include <gtest/gtest.h>
 
-int main()
+TEST(Example, getTrue)
 {
-    std::cout << "Test result: ";
-
-    if (Example().getTrue())
-    {
-        std::cout << "SUCCESS" << std::endl;
-        return 0;
-    }
-    else
-    {
-        std::cout << "FAIL" << std::endl;
-        return 1;
-    }
+    EXPECT_TRUE(Example().getTrue());
 }
