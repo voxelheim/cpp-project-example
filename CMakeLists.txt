@@ -1,6 +1,6 @@
 # PROJECT SETTINGS
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.1)
 
 project(cpp-project-example LANGUAGES C CXX)
 
@@ -21,7 +21,11 @@ if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         -g         # generate debug info
         --coverage # sets all required flags
     )
-    target_link_options(coverage_config INTERFACE --coverage)
+    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+        target_link_options(coverage_config INTERFACE --coverage)
+    else()
+        target_link_libraries(coverage_config INTERFACE --coverage)
+    endif()
 endif()
 
 # LIBRARY
