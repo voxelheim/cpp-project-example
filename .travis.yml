@@ -1,6 +1,6 @@
 language: cpp
-os: linux
 compiler: gcc
+sudo: false
 
 cache:
 - directories:
