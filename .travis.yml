@@ -20,23 +20,11 @@ script:
   - cmake --build . --config Debug -- -j $(nproc)
   - ctest -j $(nproc) --output-on-failure
 
-jobs:
-  include:
-    - stage: Unit Tests
-      script:
-        - ctest -j $(nproc) --output-on-failure
-    - stage: Test Coverage
-      script:
-        - lcov --directory . --capture --output-file coverage.info
-        - lcov --remove coverage.info '*/test/*' '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info
-        - lcov --list coverage.info
-        - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
-
-#after_success:
-#- lcov --directory . --capture --output-file coverage.info
-#- lcov --remove coverage.info '*/test/*' '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info
-#- lcov --list coverage.info
-#- bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+after_success:
+  - lcov --directory . --capture --output-file coverage.info
+  - lcov --remove coverage.info '*/test/*' '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info
+  - lcov --list coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
 notifications:
   email:
