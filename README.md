@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/voxelheim/cpp-project-example/branch/master/graph/badge.svg)](https://codecov.io/gh/voxelheim/cpp-project-example)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-# cpp-project-example
+# example-cpp-project
 
 This is an example project using:
 - c++11
